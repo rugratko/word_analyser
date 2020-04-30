@@ -2,10 +2,14 @@ import sqlite3
 
 conn = sqlite3.connect('russian.db')
 cur = conn.cursor()
-
-sql = "SELECT id, letter FROM rus_alphabet"
-cur.execute(sql)
+name = '%'+'ост'+'%'
+sql = "SELECT * FROM dictionary WHERE word LIKE ?"
+cur.execute(sql, (name,))
 letters = cur.fetchall()
 
+id = 0
 for lt in letters:
-    print("ID: {0}, LETTER: {1}".format(lt[0], lt[1]))
+    id += 1
+    #print("ID: {0}, WORD: {1}, LENGHT: {2}".format(lt[0], lt[1], lt[2]))
+
+print('Amount: {}'.format(id))
