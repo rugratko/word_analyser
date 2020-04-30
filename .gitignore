@@ -1,5 +1,6 @@
-test.py
-russian.db
+/test.py
+/russian.db
+/russian.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
