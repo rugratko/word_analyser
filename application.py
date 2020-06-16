@@ -1,4 +1,5 @@
-import algo
+from models import algo
+import os
 from datetime import datetime
 
 start_time = datetime.now()
@@ -8,9 +9,9 @@ my_text = []
 fixed_text_short = []
 fixed_text_long = []
 
-exam = open('path/exam.txt', encoding='utf-8')
-answer_short = open('path/answer_short.txt', 'w')
-answer_long = open('path/answer_long.txt', 'w')
+exam = open(os.getcwd() + '/exam.txt', encoding='utf-8')
+answer_short = open(os.getcwd() + '/answer_short.txt', 'w')
+answer_long = open(os.getcwd() + '/answer_long.txt', 'w')
 my_text = exam.read().splitlines()
 
 exam.close()
@@ -18,7 +19,7 @@ exam.close()
 for line in my_text:
     if len(line) != 0:
         fixed_text_short.append(algo.spell_checker(line, answer_type = 'cutted'))
-        fixed_text_long.append(algo.spell_checker(line, answer_type = 'full'))
+        #fixed_text_long.append(algo.spell_checker(line, answer_type = 'full'))
 
 answer_short.writelines("%s\n" % line for line in fixed_text_short)
 answer_long.writelines("%s\n" % line for line in fixed_text_long)
