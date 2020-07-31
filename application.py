@@ -1,4 +1,4 @@
-from models import algo
+import algo
 import os
 from datetime import datetime
 
@@ -9,9 +9,9 @@ my_text = []
 fixed_text_short = []
 fixed_text_long = []
 
-exam = open(os.getcwd() + '/exam.txt', encoding='utf-8')
-answer_short = open(os.getcwd() + '/answer_short.txt', 'w')
-answer_long = open(os.getcwd() + '/answer_long.txt', 'w')
+exam = open(os.getcwd() + '/data/exam.txt', encoding='utf-8')
+answer_short = open(os.getcwd() + '/data/answer_short.txt', 'w')
+answer_long = open(os.getcwd() + '/data/answer_long.txt', 'w')
 my_text = exam.read().splitlines()
 
 exam.close()

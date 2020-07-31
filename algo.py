@@ -1,8 +1,9 @@
 import re
 import enchant
 import pymorphy2
-from models import freq
-from models import names
+import freq
+import names
+from datetime import datetime
 from enchant.checker import SpellChecker
 
 morph = pymorphy2.MorphAnalyzer()
@@ -12,13 +13,12 @@ def normalize_word(word):
     word_b = word_a.normalized.normal_form
     return word_b
 
-def spell_checker(text, dict_language = 'ru_RU', database = 'russian.txt', answer_type = 'cutted', custom_dict = 'False'):
-    if custom_dict:
-        word_checker = enchant.Dict(dict_language)
-    else:
-        word_checker = enchant.DictWithPWL(dict_language, database)
+def spell_checker(text, dict_language = 'ru_RU', answer_type = 'cutted'):
+    word_checker = enchant.Dict(dict_language)
     text_checker = SpellChecker('ru_RU')
-    text_proc = text.split()
+    text_proc = text.split()        
+    start_time = datetime.now()
+    print(text)
     for position in range(len(text_proc) - 1):
         text_checker.set_text(text_proc[position])
         for err in text_checker:
@@ -39,6 +39,7 @@ def spell_checker(text, dict_language = 'ru_RU', database = 'russian.txt', answe
                         text_proc[position] = re.sub(r'\b{}\b'.format(re.escape(err.word)), fixed[0], text_proc[position])           
                     if answer_type == 'full':
                         text_proc[position] = re.sub(r'\b{}\b'.format(re.escape(err.word)), str(fixed), text_proc[position])  
+    print('CHECK TIME', datetime.now() - start_time)
 
     answer = ' '.join(text_proc)
     return answer
