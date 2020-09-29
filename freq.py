@@ -1,15 +1,22 @@
 import os
-import algo
+import pymorphy2
 import word_def as wd
 from datetime import datetime
 from operator import attrgetter
 from db_requests import db_get_words_by_firstLetter
 
+morph = pymorphy2.MorphAnalyzer()
+
+def normalize_word(word):
+    word_a = morph.parse(word)[0]
+    word_b = word_a.normalized.normal_form
+    return word_b
+
 def get_freq(word_list, err_word):
     ans_list = []
     #start_time = datetime.now()
     for word in word_list:
-        word_a = algo.normalize_word(word)
+        word_a = normalize_word(word)
         word_b = wd.Word(word, err_word)
         #print('Word {} = {}'.format(word_b.word, word_a))
         word_to_search = wd.destroy_yo(word_a)
